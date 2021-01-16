@@ -21,7 +21,7 @@ exports.create = async (req, res) => {
 
   // Create a User
   const user = {
-    username: req.body.username,
+    email: req.body.email,
     password: password,
   };
 
@@ -78,7 +78,9 @@ exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
     let user = await User.findOne({
-      email
+      where: {
+        email: email
+      }
     });
     if (!user)
       return res.status(400).json({

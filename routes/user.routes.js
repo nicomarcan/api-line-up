@@ -8,9 +8,8 @@ module.exports = app => {
 
   // Create a new User
   router.post("/",    [
-    check("username", "Please Enter a Valid Username")
-    .not()
-    .isEmpty(),
+    check("email", "Please Enter a Valid email")
+    .isEmail(),
     check("password", "Please enter a valid password").isLength({
         min: 6
     })
@@ -21,9 +20,8 @@ module.exports = app => {
   
 // Login User
 router.post("/login",    [
-  check("username", "Please Enter a Valid Username")
-  .not()
-  .isEmpty(),
+  check("email", "Please Enter a Valid email")
+  .isEmail(),
   check("password", "Please enter a valid password").isLength({
       min: 6
   })
