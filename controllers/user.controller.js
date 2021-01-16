@@ -96,7 +96,7 @@ exports.login = async (req, res) => {
     };
     jwt.sign(
       payload,
-      "secret",
+      "randomString",
       {
         expiresIn: 3600
       },
