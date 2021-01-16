@@ -1,4 +1,5 @@
 const {check} = require("express-validator");
+const auth = require("../middleware/auth");
 
 module.exports = app => {
   const users = require("../controllers/user.controller.js");
@@ -16,7 +17,17 @@ module.exports = app => {
 ], users.create);
 
   // Retrieve all Users
-  router.get("/", users.findAll);
+  router.get("/", auth , users.findAll);
+  
+// Login User
+router.post("/login",    [
+  check("username", "Please Enter a Valid Username")
+  .not()
+  .isEmpty(),
+  check("password", "Please enter a valid password").isLength({
+      min: 6
+  })
+], users.login);
 
   app.use('/api/users', router);
 }
