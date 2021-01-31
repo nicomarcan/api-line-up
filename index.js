@@ -22,6 +22,7 @@ app.get("/", (req, res) => {
 });
 
 require("./routes/user.routes.js")(app);
+require("./routes/patient.routes.js")(app);
 
 app.listen(PORT, (req, res) => {
   console.log(`Server Started at PORT ${PORT}`);

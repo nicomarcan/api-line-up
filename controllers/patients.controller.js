@@ -1,0 +1,51 @@
+const db = require("../models");
+const Patient = db.patients;
+const Op = db.Sequelize.Op;
+const { validationResult } = require("express-validator");
+
+
+// Create and Save a new patient
+exports.create = async (req, res) => {
+  // Validate request
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array()
+    });
+  }
+  const patient = {
+    ...req.body,
+    userId: req.user.id,
+    isApproved: false
+  }
+  // Save Patient in the database
+  Patient.create(patient)
+    .then(data => {
+      res.status(200).json(
+        {
+          hey: "hey",
+        }
+      );
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the patient."
+      });
+    });
+};
+
+// Retrieve all Users from the database.
+exports.findAll = (req, res) => {
+  Patient.findAll({where: {userId: req.user.id}})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving users."
+      });
+    });
+};
+

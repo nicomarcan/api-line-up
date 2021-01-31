@@ -15,8 +15,8 @@ module.exports = app => {
     })
 ], users.create);
 
-  // Retrieve all Users
-  router.get("/", auth , users.findAll);
+// Retrieve all Users
+router.get("/", auth , users.findAll);
   
 // Login User
 router.post("/login",    [
