@@ -29,6 +29,15 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.DATEONLY,
       allowNull: false,
     },
+    treatmentStart: {
+      type: Sequelize.DATEONLY,
+    },
+    treatmentEnd: {
+      type: Sequelize.DATEONLY,
+    },
+    billingStatus: {
+      type: Sequelize.STRING,
+    },
   });
 
   return Patient;
