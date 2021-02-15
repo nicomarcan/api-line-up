@@ -1,5 +1,8 @@
 const jwt = require("jsonwebtoken");
 module.exports = function(req, res, next) {
+  if (req.type === 'OPTIONS'){
+    next();
+  }
   const jwttoken = req.header("Authorization");
   if (!jwttoken) return res.status(401).json({ message: "Auth Error" });
   try {
