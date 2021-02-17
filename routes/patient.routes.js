@@ -10,6 +10,7 @@ module.exports = app => {
   router.post("/",    [
     check("firstname", "Please enter a valid firstname").isString(),
     check("lastname", "Please enter a valid lastname").isString(),
+    check("email", "Please enter a valid email").isEmail(),
 ], patients.create);
 
 // Retrieve all patients
