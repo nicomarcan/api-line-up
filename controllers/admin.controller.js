@@ -5,7 +5,7 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-// Create and Save a new User
+// Create and Save a new Admin
 exports.create = async (req, res) => {
   // Validate request
   const errors = validationResult(req);
@@ -18,7 +18,7 @@ exports.create = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const password = await bcrypt.hash(req.body.password, salt);
 
-  // Create a User
+  // Create a Admin
   const admin = {
     email: req.body.email,
     password: password,
@@ -67,7 +67,7 @@ exports.login = async (req, res) => {
         email: email
       }
     });
-    if (!user)
+    if (!admin)
       return res.status(400).json({
         message: "Admin Not Exist"
       });
