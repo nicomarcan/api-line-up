@@ -44,7 +44,20 @@ exports.findAll = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving users."
+          err.message || "Some error occurred while retrieving patients."
+      });
+    });
+};
+
+exports.findPending = (req, res) => {
+  Patient.findAll({where: {isApproved: false}})
+    .then(data => {      
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving pending patients."
       });
     });
 };
