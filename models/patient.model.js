@@ -12,21 +12,12 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.BOOLEAN,
       allowNull: false,
     },
-    dni: {
-      type: Sequelize.STRING,
-      unique: true,
-      allowNull: false,
-    },
     firstname: {
       type: Sequelize.STRING,
       allowNull: false,
     },
     lastname: {
       type: Sequelize.STRING,
-      allowNull: false,
-    },
-    birthDate: {
-      type: Sequelize.DATEONLY,
       allowNull: false,
     },
     treatmentStart: {
