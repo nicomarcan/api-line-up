@@ -5,6 +5,54 @@ const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+// Create and Save a new User
+exports.create = async (req, res) => {
+  // Validate request
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array()
+    });
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  const password = await bcrypt.hash(req.body.password, salt);
+
+  // Create a User
+  const admin = {
+    email: req.body.email,
+    password: password,
+  };
+
+  // Save Admin in the database
+  Admin.create(admin)
+    .then(data => {
+      const payload = {
+        admin: {
+          id: data.id
+        }
+      };
+      jwt.sign(
+        payload,
+        "randomString", {
+        expiresIn: 10000
+      },
+        (err, token) => {
+          if (err) throw err;
+          res.status(200).json({
+            token
+          });
+        }
+      );
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the Admin."
+      });
+    });
+};
+
 exports.login = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
