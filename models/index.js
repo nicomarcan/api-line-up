@@ -27,6 +27,6 @@ db.sequelize = sequelize;
 
 db.users = require("./user.model.js")(sequelize, Sequelize);
 db.patients = require("./patient.model.js")(sequelize, Sequelize);
-db.users = require("./admin.model.js")(sequelize, Sequelize);
+db.admins = require("./admin.model.js")(sequelize, Sequelize);
 
 module.exports = db;
