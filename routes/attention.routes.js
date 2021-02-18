@@ -7,8 +7,8 @@ module.exports = app => {
   var router = require("express").Router();
 
   // Create a new patient
-  router.post("/", attentions.create);
-  router.get("/", attentions.findAttentions);
+  router.post("/", auth, attentions.create);
+  router.get("/", auth, attentions.findAttentions);
 
   app.use('/api/attentions', auth, router);
 

@@ -9,20 +9,6 @@ exports.create = async (req, res) => {
     userId: req.user.id,
     date: new Date(parseInt(req.body.date + '000'))
   }
-
-  exports.findAttentions = (req, res) => {
-    Attention.findAll({ where: { userId: req.user.id } })
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving attentions."
-        });
-      });
-  };
-
   // Save Patient in the database
   Attention.create(attention)
     .then(data => {
@@ -36,6 +22,19 @@ exports.create = async (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while creating the attention."
+      });
+    });
+};
+
+exports.findAttentions = (req, res) => {
+  Attention.findAll({ where: { userId: req.user.id } })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving attentions."
       });
     });
 };
