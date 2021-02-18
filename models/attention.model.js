@@ -8,6 +8,14 @@ module.exports = (sequelize, Sequelize) => {
         key: 'id'
       }
     },
+    userId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id'
+      }
+    },
     date: {
       type: Sequelize.DATE,
     }
