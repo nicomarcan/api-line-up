@@ -16,6 +16,7 @@ module.exports = app => {
 // Retrieve all patients
 router.get("/", auth , patients.findAll);
 router.get("/pending", auth , patients.findPending);
+router.post("/approve", auth , patients.approve);
 
 app.use('/api/patients', auth, router);
 

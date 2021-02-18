@@ -62,3 +62,22 @@ exports.findPending = (req, res) => {
     });
 };
 
+//approve patient
+exports.approve = async (req, res) => {
+  // Approve Patient in the database
+  Patient.update({ isApproved: true}, { where: { id: req.body.id } })
+    .then(data => {
+      res.status(200).json(
+        {
+          hey: "hey",
+        }
+      );
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while approving the patient."
+      });
+    });
+};
+
