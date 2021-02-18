@@ -33,6 +33,10 @@ module.exports = (sequelize, Sequelize) => {
     billingStatus: {
       type: Sequelize.STRING,
     },
+    lineUpId: {
+      type: Sequelize.STRING,
+      unique: true,
+    },
   });
 
   return Patient;

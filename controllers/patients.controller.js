@@ -62,10 +62,13 @@ exports.findPending = (req, res) => {
     });
 };
 
+
 //approve patient
 exports.approve = async (req, res) => {
+  const id = Math.random().toString().substring(2, 10);
+
   // Approve Patient in the database
-  Patient.update({ isApproved: true}, { where: { id: req.body.id } })
+  Patient.update({ isApproved: true, lineUpId: id}, { where: { id: req.body.id } })
     .then(data => {
       res.status(200).json(
         {
