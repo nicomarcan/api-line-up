@@ -12,6 +12,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.BOOLEAN,
       allowNull: false,
     },
+    isArchived: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+    },
     firstname: {
       type: Sequelize.STRING,
       allowNull: false,

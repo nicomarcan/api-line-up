@@ -16,7 +16,8 @@ exports.create = async (req, res) => {
   const patient = {
     ...req.body,
     userId: req.user.id,
-    isApproved: false
+    isApproved: false,
+    isArchived: false,
   }
   // Save Patient in the database
   Patient.create(patient)
@@ -80,6 +81,25 @@ exports.approve = async (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while approving the patient."
+      });
+    });
+};
+
+//archive patient
+exports.archive = async (req, res) => {
+  // archive Patient in the database
+  Patient.update({ isArchived: true}, { where: { id: req.body.id } })
+    .then(data => {
+      res.status(200).json(
+        {
+          hey: "hey",
+        }
+      );
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while archiving the patient."
       });
     });
 };
