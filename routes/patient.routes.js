@@ -36,6 +36,6 @@ module.exports = app => {
     })
   ], patients.login);
 
-  app.use('/api/patients', auth, router);
+  app.use('/api/patients', router);
 
 }
