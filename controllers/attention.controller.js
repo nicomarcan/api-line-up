@@ -38,3 +38,16 @@ exports.findAttentions = (req, res) => {
       });
     });
 };
+
+exports.findPatientAttentions = (req, res) => {
+  Attention.findAll({ where: { patientId: req.user.id } })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving PATIENT attentions."
+      });
+    });
+};

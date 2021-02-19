@@ -8,6 +8,7 @@ module.exports = app => {
 
   // Create a new patient
   router.post("/", auth, attentions.create);
+  router.get("/patient", auth, attentions.findPatientAttentions);
   router.get("/", auth, attentions.findAttentions);
 
   app.use('/api/attentions', auth, router);
