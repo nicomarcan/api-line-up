@@ -2,6 +2,8 @@ const db = require("../models");
 const Patient = db.patients;
 const Op = db.Sequelize.Op;
 const { validationResult } = require("express-validator");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 
 // Create and Save a new patient
@@ -100,6 +102,47 @@ exports.editFields = async (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while archiving the patient."
+      });
+    });
+};
+
+// Create and Save a new patient
+exports.createSession = async (req, res) => {
+  // Validate request
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array()
+    });
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  const password = await bcrypt.hash(req.body.password, salt);
+
+  Patient.update({password: password}, { where: { id: req.body.id } })
+    .then(data => {
+      const payload = {
+        user: {
+          id: req.body.id
+        }
+      };
+      jwt.sign(
+        payload,
+        "randomString", {
+        expiresIn: 10000
+      },
+        (err, token) => {
+          if (err) throw err;
+          res.status(200).json({
+            token
+          });
+        }
+      );
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the patient session."
       });
     });
 };

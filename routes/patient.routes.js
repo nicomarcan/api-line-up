@@ -7,7 +7,7 @@ module.exports = app => {
   var router = require("express").Router();
 
   // Create a new patient
-  router.post("/",    [
+  router.post("/", [
     check("firstname", "Please enter a valid firstname").isString(),
     check("lastname", "Please enter a valid lastname").isString(),
     check("email", "Please enter a valid email").isEmail(),
@@ -18,6 +18,12 @@ router.get("/", auth , patients.findAll);
 router.get("/pending", auth , patients.findPending);
 router.post("/approve", auth , patients.approve);
 router.post("/editFields", auth , patients.editFields);
+
+router.post("/createSession", [
+  check("password", "Please enter a valid password").isLength({
+    min: 6
+  })
+] , patients.createSession);
 
 app.use('/api/patients', auth, router);
 
