@@ -38,7 +38,7 @@ exports.create = async (req, res) => {
 
 // Retrieve all Users from the database.
 exports.findAll = (req, res) => {
-  Patient.findAll({where: {userId: req.user.id}})
+  Patient.findAll({where: {userId: req.user.id}, order: [['lastname', 'ASC']]})
     .then(data => {
       res.send(data);
     })
@@ -86,9 +86,9 @@ exports.approve = async (req, res) => {
 };
 
 //archive patient
-exports.archive = async (req, res) => {
+exports.editFields = async (req, res) => {
   // archive Patient in the database
-  Patient.update({ isArchived: true}, { where: { id: req.body.id } })
+  Patient.update(req.body.editFields, { where: { id: req.body.id } })
     .then(data => {
       res.status(200).json(
         {
