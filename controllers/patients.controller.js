@@ -119,11 +119,11 @@ exports.createSession = async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const password = await bcrypt.hash(req.body.password, salt);
 
-  Patient.update({password: password}, { where: { id: req.body.id } })
+  Patient.update({password: password}, { where: { lineUpId: req.body.lineUpId } })
     .then(data => {
       const payload = {
         user: {
-          id: req.body.id
+          id: data.id
         }
       };
       jwt.sign(
