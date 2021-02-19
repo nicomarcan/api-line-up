@@ -147,3 +147,52 @@ exports.createSession = async (req, res) => {
     });
 };
 
+exports.login = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array()
+    });
+  }
+  const { email, password } = req.body;
+  try {
+    let patient = await Patient.findOne({
+      where: {
+        email: email
+      }
+    });
+    if (!patient)
+      return res.status(400).json({
+        message: "Patient Not Exist"
+      });
+    const isMatch = await bcrypt.compare(password, patient.password);
+    if (!isMatch)
+      return res.status(400).json({
+        message: "Incorrect Password !"
+      });
+    const payload = {
+      user: {
+        id: patient.id
+      }
+    };
+    jwt.sign(
+      payload,
+      "randomString",
+      {
+        expiresIn: 3600
+      },
+      (err, token) => {
+        if (err) throw err;
+        res.status(200).json({
+          token
+        });
+      }
+    );
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({
+      message: "Server Error"
+    });
+  }
+};
+
