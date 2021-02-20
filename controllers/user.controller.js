@@ -18,11 +18,15 @@ exports.create = async (req, res) => {
 
   const salt = await bcrypt.genSalt(10);
   const password = await bcrypt.hash(req.body.password, salt);
+  const id = Math.random().toString().substring(2, 10);
 
   // Create a User
   const user = {
     email: req.body.email,
     password: password,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    userLineUpId: id,
   };
 
   // Save User in the database
@@ -115,4 +119,21 @@ exports.login = async (req, res) => {
       message: "Server Error"
     });
   }
+};
+
+exports.editFields = async (req, res) => {
+  User.update(req.body.editFields, { where: { id: req.body.id } })
+    .then(data => {
+      res.status(200).json(
+        {
+          hey: "hey",
+        }
+      );
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while editing user fields."
+      });
+    });
 };

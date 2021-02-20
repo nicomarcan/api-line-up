@@ -12,7 +12,11 @@ module.exports = app => {
       .isEmail(),
     check("password", "Please enter a valid password").isLength({
       min: 6
-    })
+    }),
+    check("firstname", "Please Enter a Valid firstname")
+    .isString(),
+    check("lastname", "Please Enter a Valid lastname")
+    .isString(),
   ], users.create);
 
   // Retrieve all Users
@@ -24,8 +28,10 @@ module.exports = app => {
       .isEmail(),
     check("password", "Please enter a valid password").isLength({
       min: 6
-    })
+    }),
   ], users.login);
+
+  router.post("/editFields", auth, users.editFields);
 
   app.use('/api/users', router);
 }

@@ -87,9 +87,7 @@ exports.approve = async (req, res) => {
     });
 };
 
-//archive patient
 exports.editFields = async (req, res) => {
-  // archive Patient in the database
   Patient.update(req.body.editFields, { where: { id: req.body.id } })
     .then(data => {
       res.status(200).json(
@@ -101,7 +99,7 @@ exports.editFields = async (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while archiving the patient."
+          err.message || "Some error occurred while editing patient fields."
       });
     });
 };
