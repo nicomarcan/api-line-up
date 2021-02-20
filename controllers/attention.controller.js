@@ -1,7 +1,7 @@
 const db = require("../models");
 const Attention = db.attentions;
 
-// Create and Save a new patient
+// Create and Save a new attention
 exports.create = async (req, res) => {
 
   const attention = {
@@ -9,7 +9,7 @@ exports.create = async (req, res) => {
     userId: req.user.id,
     date: new Date(parseInt(req.body.date + '000'))
   }
-  // Save Patient in the database
+  // Save attention in the database
   Attention.create(attention)
     .then(data => {
       res.status(200).json(
