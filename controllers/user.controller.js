@@ -123,7 +123,7 @@ exports.login = async (req, res) => {
 };
 
 exports.editFields = async (req, res) => {
-  User.update({...req.body.editFields}, { where: { id: req.body.id } })
+  User.update(req.body.editFields, { where: { id: req.user.id } })
     .then(data => {
       res.status(200).json(
         {
