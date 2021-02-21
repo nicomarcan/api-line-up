@@ -11,7 +11,7 @@ module.exports = app => {
     check("firstname", "Please enter a valid firstname").isString(),
     check("lastname", "Please enter a valid lastname").isString(),
     check("email", "Please enter a valid email").isEmail(),
-  ], patients.create);
+  ], auth, patients.create);
 
   // Retrieve all patients
   router.get("/", auth, patients.findAll);
