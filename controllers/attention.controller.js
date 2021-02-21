@@ -1,5 +1,7 @@
 const db = require("../models");
 const Attention = db.attentions;
+const { validationResult } = require("express-validator");
+const Op = db.Sequelize.Op;
 
 // Create and Save a new attention
 exports.create = async (req, res) => {
@@ -27,7 +29,19 @@ exports.create = async (req, res) => {
 };
 
 exports.findAttentions = (req, res) => {
-  Attention.findAll({ where: { userId: req.user.id } })
+  const startDate = new Date(parseInt(req.query.from));
+  const endDate = new Date(parseInt(req.query.to));
+
+  const where = {
+    where: {
+      date: {
+        [Op.between]: [startDate, endDate]
+      },
+      userId: req.user.id
+    }
+  }
+
+  Attention.findAll(where)
     .then(data => {
       res.send(data);
     })
