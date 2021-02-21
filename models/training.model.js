@@ -21,6 +21,10 @@ module.exports = (sequelize, Sequelize) => {
         return this.setDataValue('questions', JSON.stringify(val));
       }
     },
+    score: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
   });
 
   return Training;

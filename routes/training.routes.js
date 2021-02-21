@@ -13,7 +13,9 @@ module.exports = app => {
     check("description", "Please enter a valid description")
     .isString(), 
     check("videoURL", "Please enter a valid videoURL")
-    .isString()
+    .isString(),
+    check("score", "Please enter a valid score")
+    .isNumeric()
   ], training.create);
 
   router.get("/", auth, training.findAll);
