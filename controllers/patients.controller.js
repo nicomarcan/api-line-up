@@ -68,10 +68,17 @@ exports.findPending = (req, res) => {
 
 //approve patient
 exports.approve = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array()
+    });
+  }
+
   const id = Math.random().toString().substring(2, 10);
 
   // Approve Patient in the database
-  Patient.update({ isApproved: true, lineUpId: id}, { where: { id: req.body.id } })
+  Patient.update({ isApproved: true, lineUpId: id, treatmentStart: req.body.start, treatmentEnd: req.body.end, cost: parseInt(req.body.cost)}, { where: { id: req.body.id } })
     .then(data => {
       res.status(200).json(
         {

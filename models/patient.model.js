@@ -38,6 +38,9 @@ module.exports = (sequelize, Sequelize) => {
     treatmentEnd: {
       type: Sequelize.DATEONLY,
     },
+    cost: {
+      type: Sequelize.INTEGER,
+    },
     billingStatus: {
       type: Sequelize.STRING,
     },

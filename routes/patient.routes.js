@@ -16,7 +16,11 @@ module.exports = app => {
   // Retrieve all patients
   router.get("/", auth, patients.findAll);
   router.get("/pending", auth, patients.findPending);
-  router.post("/approve", auth, patients.approve);
+  router.post("/approve", [
+    check("start", "Please enter a valid start").isString(),
+    check("end", "Please enter a valid end").isString(),
+    check("cost", "Please enter a valid cost").isNumeric(),
+  ], auth, patients.approve);
   router.post("/editFields", auth, patients.editFields);
 
 
