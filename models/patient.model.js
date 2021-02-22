@@ -41,6 +41,9 @@ module.exports = (sequelize, Sequelize) => {
     cost: {
       type: Sequelize.INTEGER,
     },
+    startedTreatment: {
+      type: Sequelize.BOOLEAN,
+    },
     billingStatus: {
       type: Sequelize.STRING,
     },

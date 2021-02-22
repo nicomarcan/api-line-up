@@ -111,6 +111,23 @@ exports.editFields = async (req, res) => {
     });
 };
 
+exports.startTreatment = async (req, res) => {
+  Patient.update({startedTreatment: true}, { where: { id: req.body.id } })
+    .then(data => {
+      res.status(200).json(
+        {
+          hey: "hey",
+        }
+      );
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while starting patient treatment."
+      });
+    });
+};
+
 // Create and Save a new patient
 exports.createSession = async (req, res) => {
   // Validate request

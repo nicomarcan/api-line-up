@@ -22,6 +22,7 @@ module.exports = app => {
     check("cost", "Please enter a valid cost").isNumeric(),
   ], auth, patients.approve);
   router.post("/editFields", auth, patients.editFields);
+  router.post("/startTreatment", auth, patients.startTreatment);
 
 
   //create patient session
