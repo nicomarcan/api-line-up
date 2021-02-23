@@ -49,6 +49,12 @@ module.exports = (sequelize, Sequelize) => {
       unique: true,
       allowNull: false,
     },
+    trainingsFinished: {
+      type: Sequelize.ARRAY(Sequelize.INTEGER),
+    },
+    score: {
+      type: Sequelize.BIGINT,
+    },
   });
 
   return User;

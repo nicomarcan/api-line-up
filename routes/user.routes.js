@@ -14,9 +14,9 @@ module.exports = app => {
       min: 6
     }),
     check("firstname", "Please Enter a Valid firstname")
-    .isString(),
+      .isString(),
     check("lastname", "Please Enter a Valid lastname")
-    .isString(),
+      .isString(),
   ], users.create);
 
   // Retrieve all Users
@@ -32,6 +32,13 @@ module.exports = app => {
   ], users.login);
 
   router.post("/editFields", auth, users.editFields);
+  router.post("/finishTraining",
+    [
+      check("id", "Please Enter a valid training id")
+        .isNumeric(),
+      check("score", "Please enter a valid score")
+        .isNumeric(),
+    ], auth, users.finishTraining);
 
   app.use('/api/users', router);
 }

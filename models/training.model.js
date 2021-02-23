@@ -13,7 +13,7 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
     },
     questions: {
-      type: Sequelize.STRING,
+      type: Sequelize.JSONB,
       get: function () {
         return JSON.parse(this.getDataValue('questions'));
       },

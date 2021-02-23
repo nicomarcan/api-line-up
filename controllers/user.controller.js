@@ -4,6 +4,7 @@ const Op = db.Sequelize.Op;
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { Sequelize } = require("../models");
 
 
 // Create and Save a new User
@@ -27,6 +28,8 @@ exports.create = async (req, res) => {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     userLineUpId: id,
+    score: 0,
+    trainingsFinished: [],
   };
 
   // Save User in the database
@@ -135,6 +138,33 @@ exports.editFields = async (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while editing user fields."
+      });
+    });
+};
+
+
+exports.finishTraining = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      errors: errors.array()
+    });
+  }
+  User.update({
+    'trainingsFinished': Sequelize.fn('array_append', Sequelize.col('trainingsFinished'), req.body.id),
+    'score': Sequelize.literal('score +' + req.body.score)
+  }, { where: { id: req.user.id } })
+    .then(data => {
+      res.status(200).json(
+        {
+          hey: "hey",
+        }
+      );
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while finishing training."
       });
     });
 };
