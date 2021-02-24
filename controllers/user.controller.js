@@ -43,7 +43,7 @@ exports.create = async (req, res) => {
       jwt.sign(
         payload,
         "randomString", {
-        expiresIn: 10000
+        expiresIn: 36000
       },
         (err, token) => {
           if (err) throw err;
@@ -107,7 +107,7 @@ exports.login = async (req, res) => {
       payload,
       "randomString",
       {
-        expiresIn: 3600
+        expiresIn: 36000
       },
       (err, token) => {
         if (err) throw err;

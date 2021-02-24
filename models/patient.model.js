@@ -51,6 +51,15 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
       unique: true,
     },
+    extraInfo: {
+      type: Sequelize.JSONB,
+      get: function () {
+        return JSON.parse(this.getDataValue('extraInfo'));
+      },
+      set: function (val) {
+        return this.setDataValue('extraInfo', JSON.stringify(val));
+      }
+    },
   });
 
   return Patient;
