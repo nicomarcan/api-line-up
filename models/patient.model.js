@@ -54,6 +54,9 @@ module.exports = (sequelize, Sequelize) => {
     extraInfo: {
       type: Sequelize.JSONB,
       get: function () {
+        if (!this.getDataValue('extraInfo')){
+          return null;
+        }
         return JSON.parse(this.getDataValue('extraInfo'));
       },
       set: function (val) {
