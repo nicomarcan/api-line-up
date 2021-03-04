@@ -31,5 +31,6 @@ db.admins = require("./admin.model.js")(sequelize, Sequelize);
 db.attentions = require("./attention.model.js")(sequelize, Sequelize);
 db.trainings = require("./training.model.js")(sequelize, Sequelize);
 db.rewards = require("./reward.model.js")(sequelize, Sequelize);
+db.rewardPurchases = require("./rewardPurchase.model.js")(sequelize, Sequelize);
 
 module.exports = db;
