@@ -10,7 +10,7 @@ exports.create = async (req, res) => {
     isDelivered: false
   }
 
-  RewardPurchase.create(req.body)
+  RewardPurchase.create(rewardPurchase)
     .then(data => {
       res.status(200).json(
         {
