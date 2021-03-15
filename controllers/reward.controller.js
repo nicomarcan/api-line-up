@@ -32,3 +32,21 @@ exports.findAll = (req, res) => {
       });
     });
 };
+
+exports.delete = async (req, res) => {
+
+  Reward.delete(req.body.id)
+    .then(data => {
+      res.status(200).json(
+        {
+          hey: "hey",
+        }
+      );
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while deleting the reward."
+      });
+    });
+};

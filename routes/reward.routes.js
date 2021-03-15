@@ -20,6 +20,7 @@ module.exports = app => {
 
   router.get("/", auth, reward.findAll);
 
+  router.delete("/", auth, reward.delete);
 
   app.use('/api/rewards', auth, router);
 }
